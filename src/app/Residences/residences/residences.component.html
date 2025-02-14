@@ -1,0 +1,25 @@
+<!-- core/residences/residences.component.html -->
+<div class="search-container">
+  <input [(ngModel)]="searchTerm" placeholder="Rechercher par adresse...">
+</div>
+
+<div *ngFor="let res of filteredResidences" class="residence-card">
+  <img [src]="res.image" alt="{{ res.name }}">
+  <h3>{{ res.name }}</h3>
+  
+  <div [ngSwitch]="res.status">
+    <p *ngSwitchCase="'Disponible'" class="available">🟢 Disponible</p>
+    <p *ngSwitchCase="'En Construction'" class="construction">🟡 En Construction</p>
+    <p *ngSwitchCase="'Vendu'" class="sold">🔴 Vendu</p>
+  </div>
+
+  <button (click)="showAddress(res.address)">Show Location</button>
+  <button (click)="addToFavorites(res)">❤️ Like</button>
+</div>
+
+<div *ngIf="favorites.length > 0">
+  <h4>Favoris ({{ favorites.length }}) :</h4>
+  <ul>
+    <li *ngFor="let fav of favorites">{{ fav.name }}</li>
+  </ul>
+</div>
